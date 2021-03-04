@@ -1,11 +1,14 @@
 package org.launchcode.codingevents.models;
 
+import org.springframework.boot.convert.DataSizeUnit;
+
 import java.util.Objects;
 
 public class Event {
 
     private int id;
     private static int nextId = 1;
+
 
     private String name;
     private String description;
