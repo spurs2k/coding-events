@@ -8,10 +8,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
-
+/**
+ * Created by Chris Bay
+ */
 @Controller
 @RequestMapping("events")
 public class EventController {
@@ -26,16 +26,18 @@ public class EventController {
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
+        model.addAttribute(new Event());
         return "events/create";
     }
 
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
-        if (errors.hasErrors()) {
+    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,
+                                         Errors errors, Model model) {
+        if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
-            model.addAttribute("errorMsg", "Bad data!");
             return "events/create";
         }
+
         EventData.add(newEvent);
         return "redirect:";
     }
@@ -55,20 +57,6 @@ public class EventController {
                 EventData.remove(id);
             }
         }
-
-        return "redirect:";
-    }
-
-    @GetMapping("edit")
-    public String displayEditForm(Model model, @PathVariable int eventId) {
-        model.addAttribute("title", "Edit Events");
-        model.addAttribute("events", EventData.getAll());
-        return "events/edit";
-    }
-
-    @PostMapping("edit")
-    public String processEditForm(int eventId, String name, String description) {
-
 
         return "redirect:";
     }
